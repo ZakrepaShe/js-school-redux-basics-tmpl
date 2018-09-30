@@ -1,4 +1,19 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {changeName, changeAge, changeStatus} from './store/actions'
+
+const mapStateToProps = state => ({
+  name: state.name,
+  age: state.age,
+  isStudent: state.isStudent,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  onNameChanged: e => changeName(e.target.value),
+  onAgeChanged: e => changeAge(e.target.value),
+  onIsStudentChanged: e => changeStatus(e.target.value),
+}, dispatch);
 
 const UserForm = ({ name, age, isStudent, onNameChanged, onAgeChanged, onIsStudentChanged }) => (
   <form>
@@ -15,7 +30,7 @@ const UserForm = ({ name, age, isStudent, onNameChanged, onAgeChanged, onIsStude
       </div>
     </div>
     <div className="form-group row">
-      <label className="col-sm-2 col-form-label" htmlFor="age">User Name</label>
+      <label className="col-sm-2 col-form-label" htmlFor="age">User Age</label>
       <div className="col-sm-3">
         <input
           id="age"
@@ -44,4 +59,4 @@ const UserForm = ({ name, age, isStudent, onNameChanged, onAgeChanged, onIsStude
   </form>
 );
 
-export default UserForm;
+export default connect(mapStateToProps,mapDispatchToProps)(UserForm);

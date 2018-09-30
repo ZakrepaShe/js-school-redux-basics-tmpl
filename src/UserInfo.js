@@ -1,4 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => ({
+  name: state.name,
+  age: state.age,
+  isStudent: state.isStudent,
+});
 
 const UserInfo = ({ name, age, isStudent }) => (
   <div className="row">
@@ -14,4 +21,4 @@ const UserInfo = ({ name, age, isStudent }) => (
   </div>
 );
 
-export default UserInfo;
+export default connect(mapStateToProps)(UserInfo);
